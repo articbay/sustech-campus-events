@@ -1,0 +1,624 @@
+/* 基础样式 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --sustech-red: #C8102E;
+    --sustech-dark: #1A1A1A;
+    --sustech-gray: #666666;
+    --sustech-light: #F5F5F5;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--sustech-light);
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Banner样式 */
+.banner-section {
+    margin-bottom: 2.5rem;
+}
+
+.banner-container {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.banner-slides {
+    position: relative;
+    height: 400px;
+}
+
+.banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.banner-slide.active {
+    opacity: 1;
+}
+
+.banner-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.banner-slide.has-video .banner-video {
+    display: block;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    pointer-events: none;
+}
+
+.banner-overlay h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner-overlay p {
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.banner-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--sustech-red);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    font-size: 1.3rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.banner-btn:hover {
+    background-color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.banner-prev {
+    left: 20px;
+}
+
+.banner-next {
+    right: 20px;
+}
+
+.banner-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.banner-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.banner-dot.active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+.banner-dot:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 头部样式 */
+header {
+    background: var(--sustech-red);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+nav {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+#auth-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-auth {
+    background-color: white;
+    border: none;
+    color: var(--sustech-red);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+#user-name {
+    margin-left: 1rem;
+    font-weight: 500;
+}
+
+/* 主内容区域 */
+main {
+    padding: 2rem 0;
+    min-height: calc(100vh - 160px);
+}
+
+.section {
+    margin-bottom: 2.5rem;
+}
+
+h2 {
+    margin-bottom: 1.2rem;
+    color: var(--sustech-dark);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+/* 筛选区域 */
+.filter-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.filter-header h3 {
+    color: var(--sustech-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.filter-stats {
+    color: var(--sustech-gray);
+    font-size: 0.9rem;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    color: var(--sustech-dark);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+.filter-group select {
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--sustech-red);
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 活动标签 */
+.event-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.tag-category {
+    background-color: #E3F2FD;
+    color: #1565C0;
+}
+
+.tag-college {
+    background-color: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.tag-system {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.tag-club {
+    background-color: #FFF3E0;
+    color: #EF6C00;
+}
+
+/* 活动网格 */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.event-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: all 0.2s;
+    border-top: 3px solid var(--sustech-red);
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.event-card h3 {
+    color: var(--sustech-red);
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.event-meta {
+    color: var(--sustech-gray);
+    font-size: 0.9rem;
+    margin: 0.7rem 0;
+}
+
+.event-meta span {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.event-actions {
+    margin-top: 1.2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: var(--sustech-red);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--sustech-gray);
+    color: white;
+}
+
+.btn-danger {
+    background-color: #DC3545;
+    color: white;
+}
+
+.btn-success {
+    background-color: #28A745;
+    color: white;
+}
+
+.btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* 模态框 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.detail-modal-content {
+    max-width: 600px;
+}
+
+.detail-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #444;
+}
+
+.detail-meta p {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #333;
+}
+
+/* 表单元素 */
+form input, form textarea, form select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: var(--sustech-red);
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+form button {
+    width: 100%;
+}
+
+/* 标签切换 */
+.my-events-tabs {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background-color: var(--sustech-red);
+    color: white;
+    border-color: var(--sustech-red);
+}
+
+/* 通知 */
+.notification {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    color: white;
+    z-index: 2000;
+    animation: slideIn 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.notification.success {
+    background-color: #28A745;
+}
+
+.notification.error {
+    background-color: #DC3545;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 工具类 */
+.hidden {
+    display: none !important;
+}
+
+/* 页脚 */
+footer {
+    background: #f0f0f0;
+    color: #666;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+.demo-hint {
+    margin-top: 0.8rem;
+    padding: 0.75rem;
+    border-left: 3px solid var(--sustech-red);
+    background: #fff7f7;
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    header .container,
+    header nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header nav {
+        gap: 0.5rem;
+    }
+
+    .banner-container {
+        height: 280px;
+    }
+
+    .banner-overlay h1 {
+        font-size: 1.8rem;
+    }
+
+    .filter-grid,
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        width: calc(100% - 2rem);
+        margin: 1rem;
+    }
+}

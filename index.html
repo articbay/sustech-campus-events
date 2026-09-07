@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="面向高校学生与活动组织者的校园活动报名与管理系统">
+    <title>SUSTech Campus Events｜校园活动报名系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎓 SUSTech Campus Events</h1>
+            <nav>
+                <button id="nav-home" class="nav-btn active">首页</button>
+                <button id="nav-my-events" class="nav-btn">我的活动</button>
+                <button id="nav-create-event" class="nav-btn">创建活动</button>
+                <div id="auth-container">
+                    <button id="btn-login" class="btn-auth">登录</button>
+                    <button id="btn-register" class="btn-auth">注册</button>
+                    <button id="btn-logout" class="btn-auth hidden">登出</button>
+                    <span id="user-name" class="hidden"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 首页动态Banner -->
+        <section class="banner-section">
+            <div class="banner-container">
+                <div class="banner-slides">
+                    <div class="banner-slide active has-video">
+                        <div class="banner-media">
+                            <video class="banner-video" autoplay muted loop playsinline>
+                                <source src="media/banner-video-1.mp4" type="video/mp4">
+                            </video>
+                            <img class="banner-image" src="https://images.unsplash.com/photo-1504384308090-c894cfb8c32f?w=1200&h=500&fit=crop" alt="SUSTech活动">
+                        </div>
+                        <div class="banner-overlay">
+                            <h1>🎓 SUSTech活动报名</h1>
+                            <p>发现精彩活动，丰富校园生活</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <div class="banner-media">
+                            <img class="banner-image" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=500&fit=crop" alt="活动现场">
+                        </div>
+                        <div class="banner-overlay">
+                            <h1>🎉 丰富多彩的活动</h1>
+                            <p>学术讲座、文体比赛、社团活动，总有适合你的</p>
+                        </div>
+                    </div>
+                    <div class="banner-slide">
+                        <div class="banner-media">
+                            <img class="banner-image" src="https://images.unsplash.com/photo-1517457373958-b7bdd45868e0?w=1200&h=500&fit=crop" alt="报名流程">
+                        </div>
+                        <div class="banner-overlay">
+                            <h1>✅ 一键报名参加</h1>
+                            <p>简单便捷的报名流程，不错过任何精彩活动</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="banner-btn banner-prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="banner-btn banner-next" onclick="changeSlide(1)">&#10095;</button>
+                <div class="banner-dots">
+                    <span class="banner-dot active" onclick="goToSlide(0)"></span>
+                    <span class="banner-dot" onclick="goToSlide(1)"></span>
+                    <span class="banner-dot" onclick="goToSlide(2)"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 登录/注册 模态框 -->
+        <div id="auth-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="login-form-container">
+                    <h2>登录</h2>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="学号@mail.sustech.edu.cn" required>
+                        <input type="password" id="login-password" placeholder="密码" required>
+                        <button type="submit" class="btn-primary">登录</button>
+                    </form>
+                    <p>没有账号？ <a href="#" id="switch-to-register">点击注册</a></p>
+                </div>
+                <div id="register-form-container" class="hidden">
+                    <h2>注册</h2>
+                    <form id="register-form">
+                        <input type="text" id="register-name" placeholder="姓名" required>
+                        <input type="email" id="register-email" placeholder="学号@mail.sustech.edu.cn" required>
+                        <input type="text" id="register-id" placeholder="学号 (12开头的8位数字)" required pattern="12\d{6}" title="请输入以12开头的8位数字学号">
+                        <input type="password" id="register-password" placeholder="密码" required>
+                        <button type="submit" class="btn-primary">注册</button>
+                    </form>
+                    <p class="demo-hint">演示身份：演示学生A / 12400001 / 12400001@mail.sustech.edu.cn；密码可自设（至少6位）。</p>
+                    <p>已有账号？ <a href="#" id="switch-to-login">点击登录</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 创建/编辑活动 模态框 -->
+        <div id="event-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="event-modal-title">创建新活动</h2>
+                <form id="event-form">
+                    <input type="hidden" id="edit-event-id">
+                    <input type="text" id="event-title" placeholder="活动标题" required>
+                    <textarea id="event-description" placeholder="活动简介"></textarea>
+                    <input type="text" id="event-location" placeholder="活动地点">
+                    <input type="datetime-local" id="event-time" required>
+                    <input type="number" id="event-max-attendees" placeholder="最大参与人数" min="1">
+                    <select id="event-organization" required>
+                        <option value="">选择所属机构</option>
+                        <option value="计算机科学与工程系">计算机科学与工程系</option>
+                        <option value="电子与电气工程系">电子与电气工程系</option>
+                        <option value="材料科学与工程系">材料科学与工程系</option>
+                        <option value="环境科学与工程学院">环境科学与工程学院</option>
+                        <option value="理学院">理学院</option>
+                        <option value="商学院">商学院</option>
+                        <option value="人文社科学院">人文社科学院</option>
+                        <option value="致仁书院">致仁书院</option>
+                        <option value="树仁书院">树仁书院</option>
+                        <option value="致诚书院">致诚书院</option>
+                        <option value="树德书院">树德书院</option>
+                        <option value="学生会">学生会</option>
+                        <option value="社团联合会">社团联合会</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <select id="event-category">
+                        <option value="">选择活动类别</option>
+                    </select>
+                    <select id="event-college">
+                        <option value="">选择所属学院（可选）</option>
+                    </select>
+                    <select id="event-department">
+                        <option value="">选择所属院系（可选）</option>
+                    </select>
+                    <select id="event-college-system">
+                        <option value="">选择所属书院（可选）</option>
+                    </select>
+                    <select id="event-club">
+                        <option value="">选择所属社团（可选）</option>
+                    </select>
+                    <button type="submit" class="btn-primary">保存</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 活动详情模态框 -->
+        <div id="detail-modal" class="modal hidden">
+            <div class="modal-content detail-modal-content">
+                <span class="close">&times;</span>
+                <h2 id="detail-title"></h2>
+                <p id="detail-description" class="detail-description"></p>
+                <div class="detail-meta">
+                    <p><strong>📍 地点：</strong><span id="detail-location"></span></p>
+                    <p><strong>📅 时间：</strong><span id="detail-time"></span></p>
+                    <p><strong>👥 人数：</strong><span id="detail-attendees"></span></p>
+                    <p><strong>👤 组织者：</strong><span id="detail-organizer"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 通知栏 -->
+        <div id="notification" class="notification hidden"></div>
+
+        <!-- 首页：活动列表 -->
+        <section id="section-home" class="section">
+            <h2>📅 最新活动</h2>
+            
+            <!-- 筛选区域 -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <h3>🔍 筛选活动</h3>
+                    <span id="filter-stats" class="filter-stats"></span>
+                </div>
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label for="filter-college">学院</label>
+                        <select id="filter-college" onchange="applyFilters()">
+                            <option value="">全部学院</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-department">院系</label>
+                        <select id="filter-department" onchange="applyFilters()">
+                            <option value="">全部院系</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-college-system">书院</label>
+                        <select id="filter-college-system" onchange="applyFilters()">
+                            <option value="">全部书院</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-club">社团</label>
+                        <select id="filter-club" onchange="applyFilters()">
+                            <option value="">全部社团</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-category">活动类别</label>
+                        <select id="filter-category" onchange="applyFilters()">
+                            <option value="">全部类别</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-organization">组织机构</label>
+                        <select id="filter-organization" onchange="applyFilters()">
+                            <option value="">全部机构</option>
+                            <option value="学生会">学生会</option>
+                            <option value="社团联合会">社团联合会</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button class="btn btn-secondary" onclick="resetFilters()">重置筛选</button>
+                </div>
+            </div>
+            
+            <div id="events-list" class="events-grid">
+            </div>
+        </section>
+
+        <!-- 我的活动 -->
+        <section id="section-my-events" class="section hidden">
+            <h2>📋 我的活动</h2>
+            <div class="my-events-tabs">
+                <button id="tab-organizing" class="tab-btn active">我组织的</button>
+                <button id="tab-registered" class="tab-btn">已报名的</button>
+            </div>
+            <div id="my-events-list" class="events-grid">
+            </div>
+        </section>
+
+        <!-- 创建活动 -->
+        <section id="section-create-event" class="section hidden">
+            <h2>✨ 创建活动</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">点击下方按钮创建新活动！</p>
+            <button id="btn-open-create-modal" class="btn-primary large">创建新活动</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SUSTech Campus Events · 当前为前端演示版，刷新后数据重置</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
