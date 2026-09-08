@@ -89,11 +89,11 @@
                     <form id="register-form">
                         <input type="text" id="register-name" placeholder="姓名" required>
                         <input type="email" id="register-email" placeholder="学号@mail.sustech.edu.cn" required>
-                        <input type="text" id="register-id" placeholder="学号 (12开头的8位数字)" required pattern="12\d{6}" title="请输入以12开头的8位数字学号">
+                        <input type="text" id="register-id" placeholder="学号 / 工号" required minlength="4" maxlength="32">
                         <input type="password" id="register-password" placeholder="密码" required>
                         <button type="submit" class="btn-primary">注册</button>
                     </form>
-                    <p class="demo-hint">演示身份：演示学生A / 12400001 / 12400001@mail.sustech.edu.cn；密码可自设（至少6位）。</p>
+                    <p class="demo-hint">演示身份：演示学生A / DEMO0001 / demo.student.a@example.invalid；密码至少6位。若邮箱确认已开启，该保留域名不会收到邮件。</p>
                     <p>已有账号？ <a href="#" id="switch-to-login">点击登录</a></p>
                 </div>
             </div>
@@ -247,10 +247,10 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 SUSTech Campus Events · 当前为前端演示版，刷新后数据重置</p>
+            <p>&copy; 2026 SUSTech Campus Events · Supabase 全栈重构版 · 演示数据均为虚构</p>
         </div>
     </footer>
 
-    <script src="js/app.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

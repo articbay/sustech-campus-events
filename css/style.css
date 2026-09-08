@@ -593,6 +593,14 @@ footer {
     line-height: 1.6;
 }
 
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 3rem;
+    color: #7f8c8d;
+    text-align: center;
+    font-size: 1.05rem;
+}
+
 @media (max-width: 768px) {
     header .container,
     header nav {
