@@ -11,6 +11,29 @@
 - 本仓库由 [@articbay](https://github.com/articbay) 维护，用于完成脱敏、工程化整理和个人全栈重构。
 - 原始课程仓库：[HD-208/mis205-project2](https://github.com/HD-208/mis205-project2)
 
+## 项目时间线
+
+- **2026 年 4—5 月：课程团队原型。** 三名成员共同完成需求分析、关系数据库设计和原生 HTML/CSS/JavaScript 前端原型；课程版本使用浏览器内存数据，不包含真实后端。
+- **2026 年 9 月：个人全栈重构。** 仓库维护者独立完成脱敏、Supabase Auth 与 PostgreSQL 接入、RLS 权限策略、报名并发控制、数据库迁移、测试和 CI。
+- **2026 年 11 月：公开前整理。** 补充脱敏系统截图，复查 Git 历史、依赖、数据库权限和公开安全性。
+
+## 界面预览
+
+以下截图来自本地前端连接 Supabase 测试项目的实际运行结果，账号和活动数据均为虚构内容。
+
+| 首页与活动筛选 | 活动详情 |
+| --- | --- |
+| ![首页与活动筛选](docs/images/home.jpg) | ![活动详情](docs/images/event-detail.jpg) |
+| **已报名活动** | **登录界面** |
+| ![已报名活动](docs/images/my-events.jpg) | ![登录界面](docs/images/auth.jpg) |
+
+<details>
+<summary>查看创建活动表单</summary>
+
+![创建活动表单](docs/images/create-event.jpg)
+
+</details>
+
 ## 已实现功能
 
 - 从 Supabase PostgreSQL 实时读取、筛选和展示活动
@@ -100,7 +123,8 @@ npm run test:smoke
 - [x] 完成本地构建、匿名 API 冒烟测试与页面验证
 - [x] 增加 GitHub Actions 生产构建检查
 - [x] 使用专用测试邮箱完成 Auth 注册、登录和写操作验收
-- [ ] 部署公开演示并补充截图
+- [x] 补充脱敏系统截图
+- [ ] 可选：部署公开演示站点
 
 ## License
 
